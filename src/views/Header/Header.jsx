@@ -5,7 +5,7 @@ import { SearchForm } from '../../components/SearchForm/SearchForm.jsx';
 import { Navigation } from '../../components/Navigation/Navigation.jsx';
 
 export const Header = () => (
-	<header className={s.Header}>
+	<header className={s.header}>
 		<Container className={s.container}>
 			<div className={s.logo}>
 				<Logo />
