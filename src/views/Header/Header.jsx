@@ -1,8 +1,8 @@
 import s from './Header.module.sass';
-import { Container } from '../Container/Container.jsx';
-import { Logo } from '../../components/Logo/Logo.jsx';
-import { SearchForm } from '../../components/SearchForm/SearchForm.jsx';
-import { Navigation } from '../../components/Navigation/Navigation.jsx';
+import { Container } from '../Container/Container';
+import { Logo } from '../../components/Logo/Logo';
+import { SearchForm } from '../../components/SearchForm/SearchForm';
+import { Navigation } from '../../components/Navigation/Navigation';
 
 export const Header = () => (
 	<header className={s.header}>

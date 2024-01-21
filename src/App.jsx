@@ -1,9 +1,93 @@
-import { Header } from './views/Header/Header.jsx';
-import { Main } from './views/Main/Main.jsx';
-import { Footer } from './views/Footer/Footer.jsx';
+import { Header } from './views/Header/Header';
+import { Footer } from './views/Footer/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchAccessToken } from './store/auth/auth.slice.js';
+import { fetchAccessToken } from './store/auth/auth.slice';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { Catalog } from './views/Catalog/Catalog';
+import { Goods } from './views/Goods/Goods';
+import { Card } from './components/Card/Card';
+import { Cart } from './components/Cart/Cart';
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: (
+			<>
+				<Header />
+				<main>
+					<Catalog />
+					<Goods />
+				</main>
+				<Footer />
+			</>
+		),
+	},
+	{
+		path: '/favorite',
+		element: (
+			<>
+				<Header />
+				<main>
+					<Catalog />
+					<Goods />
+				</main>
+				<Footer />
+			</>
+		),
+	},
+	{
+		path: '/category',
+		element: (
+			<>
+				<Header />
+				<main>
+					<Catalog />
+					<Goods />
+				</main>
+				<Footer />
+			</>
+		),
+	},
+	{
+		path: '/search',
+		element: (
+			<>
+				<Header />
+				<main>
+					<Catalog />
+					<Goods />
+				</main>
+				<Footer />
+			</>
+		),
+	},
+	{
+		path: '/cart',
+		element: (
+			<>
+				<Header />
+				<main>
+					<Cart />
+				</main>
+				<Footer />
+			</>
+		),
+	},
+	{
+		path: '/product/:productId',
+		element: (
+			<>
+				<Header />
+				<main>
+					<Catalog />
+					<Card />
+				</main>
+				<Footer />
+			</>
+		),
+	},
+]);
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -15,13 +99,11 @@ const App = () => {
 		}
 	}, [dispatch, accessToken]);
 
-	return (
-		<>
-			<Header />
-			{!loading && accessToken ? <Main /> : <div>Загрузка...</div>}
-			<Footer />
-		</>
-	);
+	if (loading) {
+		return <div>Загрузка...</div>;
+	}
+
+	return <RouterProvider router={router} />;
 };
 
 export default App;
