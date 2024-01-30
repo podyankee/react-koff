@@ -8,13 +8,6 @@ module.exports = {
 		'plugin:react-hooks/recommended',
 		'plugin:prettier/recommended',
 	],
-	'prettier/prettier': [
-		'error',
-		{
-			singleQuote: true,
-			parser: 'flow',
-		},
-	],
 	ignorePatterns: ['dist', '.eslintrc.cjs'],
 	parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
 	settings: { react: { version: '18.2' } },
@@ -23,6 +16,20 @@ module.exports = {
 		'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
 		'react/react-in-jsx-scope': 'off',
 		'react/prop-types': 'off',
+		'prettier/prettier': [
+			'error',
+			{
+				parser: 'flow',
+				useTabs: true,
+				trailingComma: 'all',
+				singleQuote: true,
+				jsxSingleQuote: true,
+				semi: true,
+				arrowParens: 'avoid',
+				bracketSameLine: true,
+				printWidth: 100,
+			},
+		],
 		'no-console': 'off',
 		'no-loop-func': ['error'],
 		eqeqeq: ['error', 'always'],
@@ -147,7 +154,7 @@ module.exports = {
 		'max-len': [
 			'error',
 			{
-				code: 80,
+				code: 100,
 				tabWidth: 2,
 				ignoreUrls: true,
 				ignorePattern: 'goog.(module|require)',

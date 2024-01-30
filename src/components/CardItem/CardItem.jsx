@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Link } from 'react-router-dom';
 import { API_URL } from '../../const.js';
 import s from './CardItem.module.sass';

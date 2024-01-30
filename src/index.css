@@ -1,11 +1,22 @@
+/* inter-regular - cyrillic_latin */
+@font-face {
+	font-display: swap;
+	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+	font-family: "Inter";
+	font-style: normal;
+	font-weight: 400;
+	src: url("/fonts/inter-v13-cyrillic_latin-regular.woff2") format("woff2");
+	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
 /* open-sans-regular - cyrillic_latin */
 @font-face {
 	font-display: swap;
 	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-	font-family: 'Open Sans';
+	font-family: "Open Sans";
 	font-style: normal;
 	font-weight: 400;
-	src: url('/fonts/open-sans-v40-cyrillic_latin-regular.woff2') format('woff2');
+	src: url("/fonts/open-sans-v40-cyrillic_latin-regular.woff2") format("woff2");
 	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
@@ -13,21 +24,10 @@
 @font-face {
 	font-display: swap;
 	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-	font-family: 'Open Sans';
+	font-family: "Open Sans";
 	font-style: normal;
 	font-weight: 700;
-	src: url('/fonts/open-sans-v40-cyrillic_latin-700.woff2') format('woff2');
-	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
-}
-
-/* inter-regular - cyrillic_latin */
-@font-face {
-	font-display: swap;
-	/* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
-	font-family: 'Inter';
-	font-style: normal;
-	font-weight: 400;
-	src: url('/fonts/inter-v13-cyrillic_latin-regular.woff2') format('woff2');
+	src: url("/fonts/open-sans-v40-cyrillic_latin-700.woff2") format("woff2");
 	/* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
 }
 
@@ -45,9 +45,8 @@ html {
 body {
 	position: relative;
 	font-family: "Open Sans", sans-serif;
-	color: #1c1c1c;
 	font-size: 12px;
-	font-weight: 400;
+	color: #1c1c1c;
 	line-height: 1.2;
 	background-color: #fff;
 }
@@ -61,17 +60,23 @@ body {
 
 main {
 	flex-grow: 1;
+	padding-bottom: 80px;
+
+	@media (min-width: 580px) {
+		padding-bottom: 100px;
+	}
+}
+
+@media (min-width: 820px) {
+	body {
+		font-size: 16px;
+	}
 }
 
 img,
 svg {
 	display: block;
-	max-width: 100%;
 	height: auto;
-}
-
-svg {
-	max-height: 100%;
 }
 
 button {
@@ -79,8 +84,6 @@ button {
 	cursor: pointer;
 	border: 0;
 	background-color: transparent;
-	display: flex;
-	flex-direction: column;
 }
 
 a {
@@ -99,7 +102,8 @@ h2,
 h3,
 p,
 figure,
-fieldset {
+fieldset,
+span {
 	margin: 0;
 }
 
@@ -108,10 +112,9 @@ fieldset {
 	transform: scale(0);
 }
 
-main {
-	padding-bottom: 80px;
-
-	@media (min-width: 820px) {
-		padding-bottom: 100px;
-	}
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+	display: none;
 }
