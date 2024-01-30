@@ -16,7 +16,7 @@ export const Footer = () => (
 			<div className={s.developers}>
 				<Developers />
 			</div>
-			<p className={s.copyright}> @copy; Koff, 2023 </p>
+			<p className={s.copyright}> &copy; Koff 2023 </p>
 		</Container>
 	</footer>
 );
