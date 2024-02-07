@@ -4,19 +4,31 @@ import s from './Goods.module.sass';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchProducts } from '../../store/products/products.slice';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useLocation } from 'react-router-dom';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 export const Goods = () => {
 	const dispatch = useDispatch();
 	const [searchParam] = useSearchParams();
+	const { data, loading, error, pagination } = useSelector(state => state.products);
+	const { favoriteList } = useSelector(state => state.favorite);
+	const { pathname } = useLocation();
+
 	const category = searchParam.get('category');
 	const q = searchParam.get('q');
-
-	const { data, loading, error } = useSelector(state => state.products);
+	const page = searchParam.get('page');
 
 	useEffect(() => {
-		dispatch(fetchProducts({ category, q }));
-	}, [dispatch, category, q]);
+		if (pathname !== '/favorite') {
+			dispatch(fetchProducts({ category, q, page }));
+		}
+	}, [dispatch, category, q, pathname, page]);
+
+	useEffect(() => {
+		if (pathname === '/favorite') {
+			dispatch(fetchProducts({ list: favoriteList.join(','), page }));
+		}
+	}, [dispatch, favoriteList, pathname, page]);
 
 	if (loading) return <div>Загрузка...</div>;
 	if (error) return <div>Ошибка: {error}</div>;
@@ -26,13 +38,16 @@ export const Goods = () => {
 			<Container>
 				<h2 className={`${s.title} visually-hidden`}>Список товаров</h2>
 				{data?.length ? (
-					<ul className={s.list}>
-						{data.map(item => (
-							<li key={item.id}>
-								<CardItem {...item} />
-							</li>
-						))}
-					</ul>
+					<>
+						<ul className={s.list}>
+							{data.map(item => (
+								<li key={item.id}>
+									<CardItem {...item} />
+								</li>
+							))}
+						</ul>
+						{pagination ? <Pagination pagination={pagination} /> : ''}
+					</>
 				) : (
 					<p>По вашему запросу ничего не найдено.</p>
 				)}
