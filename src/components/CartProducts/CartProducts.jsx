@@ -1,54 +1,53 @@
+import { useDispatch } from 'react-redux';
 import s from './CartProducts.module.sass';
+import { API_URL } from '../../const';
+import { removeProductFromCart, updateProductToCart } from '../../store/cart/cart.slice';
 
-export const CartProducts = () => (
-	<ul className={s.products}>
-		<li className={s.product} key={1}>
-			<img
-				className={s.img}
-				src='https://koff-api.vercel.app/img//1hb4405mef8h0jrm.jpg'
-				alt='Прямой диван ракушка'
-			/>
-			<h3 className={s.titleProduct}>Прямой диван ракушка</h3>
-			<p className={s.price}>{'48263'.toLocaleString()}&nbsp;&#x20bd;</p>
-			<p className={s.article}>арт. 16955809458</p>
+export const CartProducts = ({ products }) => {
+	const dispatch = useDispatch();
 
-			<div className={s.productControl}>
-				<button className={s.productBtn}>-</button>
-				<p className={s.productCount}>3</p>
-				<button className={s.productBtn}>+</button>
-			</div>
-		</li>
-		<li className={s.product} key={2}>
-			<img
-				className={s.img}
-				src='https://koff-api.vercel.app/img//1hb4405mef8h0jrm.jpg'
-				alt='Прямой диван ракушка'
-			/>
-			<h3 className={s.titleProduct}>Прямой диван ракушка</h3>
-			<p className={s.price}>{'48263'.toLocaleString()}&nbsp;&#x20bd;</p>
-			<p className={s.article}>арт. 16955809458</p>
+	const handleMinus = (id, quantity) => {
+		if (quantity > 1) {
+			dispatch(
+				updateProductToCart({
+					productId: id,
+					quantity: quantity - 1,
+				}),
+			);
+		} else {
+			dispatch(removeProductFromCart(id));
+		}
+	};
 
-			<div className={s.productControl}>
-				<button className={s.productBtn}>-</button>
-				<p className={s.productCount}>3</p>
-				<button className={s.productBtn}>+</button>
-			</div>
-		</li>
-		<li className={s.product} key={3}>
-			<img
-				className={s.img}
-				src='https://koff-api.vercel.app/img//1hb4405mef8h0jrm.jpg'
-				alt='Прямой диван ракушка'
-			/>
-			<h3 className={s.titleProduct}>Прямой диван ракушка</h3>
-			<p className={s.price}>{'48263'.toLocaleString()}&nbsp;&#x20bd;</p>
-			<p className={s.article}>арт. 16955809458</p>
+	const handlePlus = (id, quantity) => {
+		dispatch(
+			updateProductToCart({
+				productId: id,
+				quantity: quantity + 1,
+			}),
+		);
+	};
 
-			<div className={s.productControl}>
-				<button className={s.productBtn}>-</button>
-				<p className={s.productCount}>3</p>
-				<button className={s.productBtn}>+</button>
-			</div>
-		</li>
-	</ul>
-);
+	return (
+		<ul className={s.products}>
+			{products.map(({ id, images: [image], name, price, article, quantity }) => (
+				<li className={s.product} key={id}>
+					<img className={s.img} src={`${API_URL}${image}`} alt={name} />
+					<h3 className={s.titleProduct}>{name}</h3>
+					<p className={s.price}>{price.toLocaleString()}&nbsp;&#x20bd;</p>
+					<p className={s.article}>арт. {article}</p>
+
+					<div className={s.productControl}>
+						<button className={s.productBtn} onClick={() => handleMinus(id, quantity)}>
+							-
+						</button>
+						<p className={s.productCount}>{quantity}</p>
+						<button className={s.productBtn} onClick={() => handlePlus(id, quantity)}>
+							+
+						</button>
+					</div>
+				</li>
+			))}
+		</ul>
+	);
+};
