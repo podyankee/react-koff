@@ -10,6 +10,7 @@ import { Card } from './components/Card/Card';
 import { Cart } from './views/Cart/Cart';
 import { Order } from './components/Order/Order';
 import { Breadcrumbs } from './components/Breadcrumbs/Breadcrumbs';
+import { PageNotFound } from './views/PageNotFound/PageNotFound';
 
 const router = createBrowserRouter([
 	{
@@ -98,6 +99,18 @@ const router = createBrowserRouter([
 				<Header />
 				<main>
 					<Order />
+				</main>
+				<Footer />
+			</>
+		),
+	},
+	{
+		path: '*',
+		element: (
+			<>
+				<Header />
+				<main>
+					<PageNotFound />
 				</main>
 				<Footer />
 			</>
