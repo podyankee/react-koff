@@ -4,7 +4,7 @@ import { Container } from '../../views/Container/Container';
 import s from './Card.module.sass';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProduct } from '../../store/product/product.slice';
+import { clearProduct, fetchProduct } from '../../store/product/product.slice';
 import { Slider } from '../Slider/Slider';
 import { FavoriteButton } from '../FavoriteButton/FavoriteButton';
 import { AddCartButton } from '../AddCartButton/AddCartButton';
@@ -16,6 +16,10 @@ export const Card = () => {
 
 	useEffect(() => {
 		dispatch(fetchProduct(productId));
+
+		return () => {
+			dispatch(clearProduct());
+		};
 	}, [dispatch, productId]);
 
 	if (loading) return <div>Загрузка...</div>;
